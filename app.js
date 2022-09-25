@@ -44,6 +44,7 @@ app.get("/", function (req, res) {
   //It will only run when you go to the home route
   Item.find({}, function (err, foundItems) {
     if (foundItems.length === 0) {
+      //So that default items don't gets entry multiple times
       Item.insertMany(defaultItems, function (err) {
         if (err) {
           console.log(err);
@@ -59,15 +60,13 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-  const item = req.body.newItem;
-
-  if (req.body.list === "Work") {
-    workItems.push(item);
-    res.redirect("/work");
-  } else {
-    items.push(item);
-    res.redirect("/");
-  }
+  const itemName = req.body.newItem;
+  //itemName is what user types and clicks + to add
+  const item = new Item({
+    name: itemName //itemNamem value passed from list.ejs
+  });
+  item.save(); //Saves the item into the collection
+  res.redirect("/"); //So the you can see updated list in real time
 });
 
 app.get("/work", function (req, res) {
