@@ -6,10 +6,14 @@
 
   <div class="box">
     <% for (let i=0; i<newListItems.length; i++) { %>
-      <div class="item">
-        <input type="checkbox">
-        <p><%=  newListItems[i].name  %></p>
-      </div>
+      <form action="/delete" method="post"> 
+        <!-- adding a route which is responsible for deleting -->
+        <!-- Still post method is used -->
+        <div class="item">
+          <input name="checkbox" value="<%= newListItems[i]._id %> " type="checkbox" onchange="this.form.submit()">
+          <p><%=  newListItems[i].name  %></p>
+        </div>
+      </form>
       <% } %>
 
       <form class="item" action="/" method="post">

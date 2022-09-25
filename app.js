@@ -69,9 +69,24 @@ app.post("/", function (req, res) {
   res.redirect("/"); //So the you can see updated list in real time
 });
 
+app.post("/delete", function(req, res){
+  const checkedItemID = req.body.checkbox;
+  console.log(checkedItemID);
+  Item.findByIdAndRemove(checkedItemID, function(err){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Successfully deleted");
+    }
+  });
+  res.redirect();
+});
+
 app.get("/work", function (req, res) {
   res.render("list", { listTitle: "Work List", newListItems: workItems });
 });
+
 
 app.get("/about", function (req, res) {
   res.render("about");
