@@ -72,10 +72,12 @@ app.post("/", function (req, res) {
 app.post("/delete", function(req, res){
   const checkedItemID = req.body.checkbox;
   console.log(checkedItemID);
+  console.log(checkedItemID.length);
+ 
   
-  Item.findByIdAndRemove({_id: "63304238cc7eac918a1ffbf4"}, function(err){
+  Item.findByIdAndRemove(checkedItemID.trim(), function(err){
     if(err){
-      console.log("An error occured");
+      console.log(err);
     }
     else{
       console.log("Successfully deleted");
