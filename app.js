@@ -72,15 +72,16 @@ app.post("/", function (req, res) {
 app.post("/delete", function(req, res){
   const checkedItemID = req.body.checkbox;
   console.log(checkedItemID);
-  Item.findByIdAndRemove(checkedItemID, function(err){
+  
+  Item.findByIdAndRemove({_id: "63304238cc7eac918a1ffbf4"}, function(err){
     if(err){
-      console.log(err);
+      console.log("An error occured");
     }
     else{
       console.log("Successfully deleted");
     }
   });
-  res.redirect();
+  res.redirect("/");
 });
 
 app.get("/work", function (req, res) {
